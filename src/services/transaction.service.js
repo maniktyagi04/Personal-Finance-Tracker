@@ -20,7 +20,7 @@ const createTransaction = async (userId, data) => {
   // Update budget if expense
   if (transaction.type === 'EXPENSE') {
     const d = new Date(transaction.date);
-    await budgetRepo.updateBudgetSpent(userId, transaction.categoryId, d.getMonth() + 1, d.getFullYear(), Number(transaction.amount));
+    await budgetRepo.updateBudgetSpent(userId, transaction.categoryId, d.getUTCMonth() + 1, d.getUTCFullYear(), Number(transaction.amount));
   }
 
   return transaction;
@@ -34,14 +34,14 @@ const updateTransaction = async (userId, transactionId, data) => {
   // For simplicity, we just do the update. In a real app, calculate difference and update budget.
   if (existing.type === 'EXPENSE') {
       const oldD = new Date(existing.date);
-      await budgetRepo.updateBudgetSpent(userId, existing.categoryId, oldD.getMonth() + 1, oldD.getFullYear(), -Number(existing.amount));
+      await budgetRepo.updateBudgetSpent(userId, existing.categoryId, oldD.getUTCMonth() + 1, oldD.getUTCFullYear(), -Number(existing.amount));
   }
 
   const transaction = await transactionRepo.updateTransaction(transactionId, data);
 
   if (transaction.type === 'EXPENSE') {
       const d = new Date(transaction.date);
-      await budgetRepo.updateBudgetSpent(userId, transaction.categoryId, d.getMonth() + 1, d.getFullYear(), Number(transaction.amount));
+      await budgetRepo.updateBudgetSpent(userId, transaction.categoryId, d.getUTCMonth() + 1, d.getUTCFullYear(), Number(transaction.amount));
   }
 
   return transaction;
@@ -53,7 +53,7 @@ const deleteTransaction = async (userId, transactionId) => {
 
   if (existing.type === 'EXPENSE') {
       const d = new Date(existing.date);
-      await budgetRepo.updateBudgetSpent(userId, existing.categoryId, d.getMonth() + 1, d.getFullYear(), -Number(existing.amount));
+      await budgetRepo.updateBudgetSpent(userId, existing.categoryId, d.getUTCMonth() + 1, d.getUTCFullYear(), -Number(existing.amount));
   }
 
   await transactionRepo.deleteTransaction(transactionId);

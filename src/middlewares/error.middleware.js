@@ -29,6 +29,7 @@ const errorHandler = (err, req, res, next) => {
   }
 
   if (err instanceof Prisma.PrismaClientValidationError) {
+    console.error('[Prisma Error]', err.message);
     return res.status(400).json({
       success: false,
       error: 'Invalid data provided to the database.',
