@@ -1,10 +1,3 @@
-/**
- * src/config/env.js
- * Centralised environment-variable access with validation at startup.
- * The process exits immediately if a required variable is missing —
- * fail-fast prevents cryptic runtime errors later.
- */
-
 'use strict';
 
 require('dotenv').config();

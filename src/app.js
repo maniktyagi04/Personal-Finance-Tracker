@@ -1,10 +1,3 @@
-/**
- * src/app.js
- * Express application factory.
- * Separated from server.js so the app can be imported in tests
- * without starting a real HTTP server.
- */
-
 'use strict';
 
 const express = require('express');
@@ -18,10 +11,9 @@ const errorHandler = require('./middlewares/error.middleware');
 
 const app = express();
 
-// ── Security headers ──────────────────────────────────────────────────────────
 app.use(helmet());
 
-// ── CORS ──────────────────────────────────────────────────────────────────────
+
 app.use(
   cors({
     origin: env.isDev() ? '*' : process.env.ALLOWED_ORIGINS?.split(',') ?? [],
@@ -30,17 +22,17 @@ app.use(
   })
 );
 
-// ── Request logging ───────────────────────────────────────────────────────────
+
 app.use(morgan(env.isDev() ? 'dev' : 'combined'));
 
-// ── Body parsers ──────────────────────────────────────────────────────────────
-app.use(express.json({ limit: '10kb' }));          // Prevent payload flooding
+
+app.use(express.json({ limit: '10kb' }));          
 app.use(express.urlencoded({ extended: true }));
 
-// ── API routes ────────────────────────────────────────────────────────────────
+
 app.use('/api/v1', apiRoutes);
 
-// ── 404 handler ───────────────────────────────────────────────────────────────
+
 app.use((req, res) => {
   res.status(404).json({
     success: false,
@@ -48,7 +40,7 @@ app.use((req, res) => {
   });
 });
 
-// ── Global error handler (must be last middleware) ────────────────────────────
+
 app.use(errorHandler);
 
 module.exports = app;

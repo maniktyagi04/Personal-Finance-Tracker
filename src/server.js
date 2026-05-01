@@ -1,19 +1,12 @@
-/**
- * src/server.js
- * HTTP server entry point.
- * Connects to the database, then starts listening.
- * Handles graceful shutdown on SIGTERM / SIGINT.
- */
-
 'use strict';
 
-const env = require('./config/env'); // Must be first — validates env vars
+const env = require('./config/env'); 
 const app = require('./app');
 const prisma = require('./config/database');
 
 const startServer = async () => {
   try {
-    // Verify database connectivity before accepting traffic
+
     await prisma.$connect();
     console.log('✅  Database connected successfully.');
 
@@ -22,7 +15,7 @@ const startServer = async () => {
       console.log(`📋  Health: http://localhost:${env.PORT}/api/v1/health`);
     });
 
-    // ── Graceful shutdown ─────────────────────────────────────────────────────
+
     const shutdown = async (signal) => {
       console.log(`\n⚠️  Received ${signal}. Shutting down gracefully...`);
       server.close(async () => {
@@ -31,7 +24,7 @@ const startServer = async () => {
         process.exit(0);
       });
 
-      // Force-exit if shutdown takes too long
+
       setTimeout(() => {
         console.error('❌  Graceful shutdown timed out. Force exiting.');
         process.exit(1);

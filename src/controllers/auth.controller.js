@@ -1,20 +1,9 @@
-/**
- * src/controllers/auth.controller.js
- * HTTP layer for authentication.
- * Responsibilities:
- *   1. Extract validated data from req
- *   2. Delegate to the service
- *   3. Send the HTTP response
- *
- * NO business logic here — only request/response handling.
- */
 
 'use strict';
 
 const authService = require('../services/auth.service');
 const { sendSuccess } = require('../utils/apiResponse');
 
-// ── POST /api/v1/auth/register ────────────────────────────────────────────────
 
 /**
  * @route   POST /api/v1/auth/register
@@ -36,7 +25,6 @@ const register = async (req, res, next) => {
   }
 };
 
-// ── POST /api/v1/auth/login ───────────────────────────────────────────────────
 
 /**
  * @route   POST /api/v1/auth/login
@@ -53,7 +41,6 @@ const login = async (req, res, next) => {
   }
 };
 
-// ── GET /api/v1/auth/me ────────────────────────────────────────────────────────
 
 /**
  * @route   GET /api/v1/auth/me
@@ -61,7 +48,7 @@ const login = async (req, res, next) => {
  */
 const getMe = async (req, res, next) => {
   try {
-    // req.user is attached by the protect middleware
+
     sendSuccess(res, { user: req.user }, 'Profile retrieved successfully.');
   } catch (err) {
     next(err);

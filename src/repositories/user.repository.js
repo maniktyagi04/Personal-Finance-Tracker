@@ -1,10 +1,3 @@
-/**
- * src/repositories/user.repository.js
- * Data-access layer for the User model.
- * ONLY Prisma calls live here — no business logic, no HTTP knowledge.
- * Services call these methods and handle the results.
- */
-
 'use strict';
 
 const prisma = require('../config/database');
@@ -26,9 +19,7 @@ const createUser = async ({ name, email, passwordHash }) => {
   });
 };
 
-/**
- * Find a user by their email address.
- * Returns the passwordHash so the service can verify it.
+/*
  * @param {string} email
  * @returns {Promise<User | null>}
  */
@@ -46,8 +37,7 @@ const findUserByEmail = async (email) => {
 };
 
 /**
- * Find a user by their primary key.
- * Never returns the password hash.
+
  * @param {string} id
  * @returns {Promise<User | null>}
  */

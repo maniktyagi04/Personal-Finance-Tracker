@@ -1,22 +1,9 @@
-/**
- * src/middlewares/auth.middleware.js
- * JWT authentication guard.
- * Extracts the Bearer token from the Authorization header,
- * verifies it, and attaches the decoded user to req.user.
- *
- * Downstream route handlers / services can read req.user.id
- * to scope all DB queries to the authenticated user.
- */
-
 'use strict';
 
 const { verifyToken } = require('../utils/jwt');
 const { sendError } = require('../utils/apiResponse');
 
-/**
- * Middleware: protect
- * Attaches { id, email, iat, exp } to req.user on success.
- */
+
 const protect = (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
@@ -32,7 +19,7 @@ const protect = (req, res, next) => {
     }
 
     const decoded = verifyToken(token);
-    req.user = decoded; // { id, email, iat, exp }
+    req.user = decoded; 
     next();
   } catch (err) {
     if (err.name === 'TokenExpiredError') {

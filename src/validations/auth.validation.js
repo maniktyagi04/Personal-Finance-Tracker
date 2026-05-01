@@ -1,15 +1,7 @@
-/**
- * src/validations/auth.validation.js
- * Zod schemas for auth endpoints.
- * Validation is intentionally kept in this layer so controllers
- * and services stay free of schema details.
- */
-
 'use strict';
 
 const { z } = require('zod');
 
-// ── Register ──────────────────────────────────────────────────────────────────
 const registerSchema = z.object({
   body: z.object({
     name: z
@@ -35,7 +27,6 @@ const registerSchema = z.object({
   }),
 });
 
-// ── Login ─────────────────────────────────────────────────────────────────────
 const loginSchema = z.object({
   body: z.object({
     email: z

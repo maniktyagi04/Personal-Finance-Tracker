@@ -1,17 +1,9 @@
-/**
- * src/utils/jwt.js
- * Thin wrapper around the `jsonwebtoken` library.
- * Keeps JWT logic in one place so rotating the secret or
- * changing the algorithm only requires a change here.
- */
-
 'use strict';
 
 const jwt = require('jsonwebtoken');
 const env = require('../config/env');
 
 /**
- * Sign a JWT containing the given payload.
  * @param {{ id: string, email: string }} payload
  * @returns {string} signed token
  */
@@ -23,8 +15,7 @@ const signToken = (payload) => {
 };
 
 /**
- * Verify a JWT and return the decoded payload.
- * Throws `JsonWebTokenError` or `TokenExpiredError` on failure.
+
  * @param {string} token
  * @returns {object} decoded payload
  */

@@ -1,22 +1,9 @@
-/**
- * src/middlewares/error.middleware.js
- * Global error-handling middleware.
- * Must be registered LAST in the Express middleware chain (4 args).
- *
- * Handles:
- *   - Prisma known errors (P2002 unique, P2025 not-found)
- *   - Generic application errors
- *   - Unknown / unhandled errors → 500
- */
-
 'use strict';
 
 const { Prisma } = require('@prisma/client');
 const env = require('../config/env');
 
-// eslint-disable-next-line no-unused-vars
 const errorHandler = (err, req, res, next) => {
-  // ── Prisma-specific errors ────────────────────────────────────────────────
   if (err instanceof Prisma.PrismaClientKnownRequestError) {
     switch (err.code) {
       case 'P2002': {
@@ -47,11 +34,9 @@ const errorHandler = (err, req, res, next) => {
     });
   }
 
-  // ── Operational errors set by our own code ────────────────────────────────
   const statusCode = err.statusCode || 500;
   const message = err.message || 'Internal server error';
 
-  // Log in dev; in production use a real logger (e.g. Winston / Pino)
   if (env.isDev()) {
     console.error('[ErrorHandler]', err);
   } else {
@@ -61,7 +46,7 @@ const errorHandler = (err, req, res, next) => {
   res.status(statusCode).json({
     success: false,
     error: message,
-    // Only expose stack trace in development
+
     ...(env.isDev() && { stack: err.stack }),
   });
 };
