@@ -32,12 +32,26 @@ const deleteCategory = async (userId, categoryId) => {
     });
   }
 
-  // Reassign transactions. We require transactionRepo here.
-  const transactionRepo = require('../repositories/transaction.repository');
-  await transactionRepo.reassignTransactionsCategory(userId, categoryId, defaultCategory.id);
+  // Use a transaction for atomicity
+  const prisma = require('../config/database');
+  await prisma.$transaction(async (tx) => {
+    // 1. Reassign transactions
+    await tx.transaction.updateMany({
+      where: { userId, categoryId },
+      data: { categoryId: defaultCategory.id },
+    });
 
-  // Delete category
-  await categoryRepo.deleteCategory(categoryId);
+    // 2. Delete associated budgets
+    await tx.budget.deleteMany({
+      where: { userId, categoryId },
+    });
+
+    // 3. Delete category
+    await tx.category.delete({
+      where: { id: categoryId },
+    });
+  });
+
   return { message: 'Category deleted and transactions reassigned successfully' };
 };
 

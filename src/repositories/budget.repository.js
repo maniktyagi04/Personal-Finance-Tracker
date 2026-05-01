@@ -68,9 +68,19 @@ const updateBudgetSpent = async (userId, categoryId, month, year, spentAdjustmen
 };
 
 const findBudgetsByUser = async (userId, month, year) => {
+  const where = { userId };
+  if (month) where.month = month;
+  if (year) where.year = year;
+  
   return prisma.budget.findMany({
-    where: { userId, month, year },
+    where,
     include: { category: true }
+  });
+};
+
+const deleteBudgetsByCategory = async (userId, categoryId) => {
+  return prisma.budget.deleteMany({
+    where: { userId, categoryId }
   });
 };
 
@@ -78,5 +88,6 @@ module.exports = {
   upsertBudget,
   findBudget,
   updateBudgetSpent,
-  findBudgetsByUser
+  findBudgetsByUser,
+  deleteBudgetsByCategory
 };
