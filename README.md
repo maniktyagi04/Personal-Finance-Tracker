@@ -18,6 +18,15 @@ The project follows a **clean architecture pattern** (Controller → Service →
 
 ---
 
+## 🔑 Demo Credentials
+
+Use the following credentials to explore the application:
+
+    Email: demo@example.com
+    Password: DemoPassword123!
+
+---
+
 ## 🧱 Tech Stack
 
 ### Frontend
@@ -148,6 +157,15 @@ Start the backend server:
 
 ---
 
+## 📌 Future Improvements
+
+- Add unit and integration tests (Jest)  
+- Add charts and analytics  
+- Implement role-based access control (RBAC)  
+- Add recurring transactions  
+- Improve UI/UX  
+
+---
 
 ## 🧠 Summary
 
