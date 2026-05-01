@@ -19,7 +19,7 @@ const createUser = async ({ name, email, passwordHash }) => {
   });
 };
 
-/*
+/**
  * @param {string} email
  * @returns {Promise<User | null>}
  */
@@ -37,7 +37,8 @@ const findUserByEmail = async (email) => {
 };
 
 /**
-
+ * Find a user by their primary key.
+ * Never returns the password hash.
  * @param {string} id
  * @returns {Promise<User | null>}
  */

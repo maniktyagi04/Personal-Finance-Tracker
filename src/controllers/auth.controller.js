@@ -1,4 +1,3 @@
-
 'use strict';
 
 const authService = require('../services/auth.service');
@@ -6,8 +5,8 @@ const { sendSuccess } = require('../utils/apiResponse');
 
 
 /**
- * @route   POST /api/v1/auth/register
- * @access  Public
+ * @route   
+ * @access  
  */
 const register = async (req, res, next) => {
   try {
@@ -27,8 +26,8 @@ const register = async (req, res, next) => {
 
 
 /**
- * @route   POST /api/v1/auth/login
- * @access  Public
+ * @route   
+ * @access  
  */
 const login = async (req, res, next) => {
   try {
@@ -43,12 +42,12 @@ const login = async (req, res, next) => {
 
 
 /**
- * @route   GET /api/v1/auth/me
- * @access  Private (requires JWT)
+ * @route   
+ * @access  
  */
 const getMe = async (req, res, next) => {
   try {
-
+    
     sendSuccess(res, { user: req.user }, 'Profile retrieved successfully.');
   } catch (err) {
     next(err);

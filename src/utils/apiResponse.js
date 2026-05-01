@@ -16,6 +16,7 @@ const sendSuccess = (res, data, message = 'Success', statusCode = 200) => {
 };
 
 /**
+
  * @param {import('express').Response} res
  * @param {string} error
  * @param {number} [statusCode]

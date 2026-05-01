@@ -14,9 +14,11 @@ const validate = (schema) => (req, res, next) => {
       query: req.query,
     });
 
+
     if (parsed.body) req.body = parsed.body;
     if (parsed.params) req.params = parsed.params;
     if (parsed.query) {
+
       for (const key of Object.keys(req.query)) delete req.query[key];
       Object.assign(req.query, parsed.query);
     }

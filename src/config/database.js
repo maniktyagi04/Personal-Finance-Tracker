@@ -1,4 +1,3 @@
-
 'use strict';
 
 require('dotenv').config();
@@ -6,6 +5,7 @@ const { Pool } = require('pg');
 const { PrismaPg } = require('@prisma/adapter-pg');
 const { PrismaClient } = require('@prisma/client');
 const env = require('./env');
+
 
 const pool = new Pool({
   connectionString: env.DATABASE_URL,

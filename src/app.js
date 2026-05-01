@@ -13,7 +13,6 @@ const app = express();
 
 app.use(helmet());
 
-
 app.use(
   cors({
     origin: env.isDev() ? '*' : process.env.ALLOWED_ORIGINS?.split(',') ?? [],
@@ -22,9 +21,7 @@ app.use(
   })
 );
 
-
 app.use(morgan(env.isDev() ? 'dev' : 'combined'));
-
 
 app.use(express.json({ limit: '10kb' }));          
 app.use(express.urlencoded({ extended: true }));

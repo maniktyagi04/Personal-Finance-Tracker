@@ -6,7 +6,6 @@ const { signToken } = require('../utils/jwt');
 const userRepository = require('../repositories/user.repository');
 
 /**
-
  * @param {string} message
  * @param {number} statusCode
  */
@@ -17,8 +16,8 @@ const createError = (message, statusCode) => {
 };
 
 
-/**
 
+/**
  * @param {{ name: string, email: string, password: string }} dto
  * @returns {Promise<{ user: object, token: string }>}
  */
@@ -32,6 +31,7 @@ const register = async ({ name, email, password }) => {
 
   const passwordHash = await bcrypt.hash(password, env.BCRYPT_SALT_ROUNDS);
 
+
   const user = await userRepository.createUser({ name, email, passwordHash });
 
 
@@ -42,11 +42,11 @@ const register = async ({ name, email, password }) => {
 
 
 /**
-
  * @param {{ email: string, password: string }} dto
  * @returns {Promise<{ user: object, token: string }>}
  */
 const login = async ({ email, password }) => {
+
   const userWithHash = await userRepository.findUserByEmail(email);
 
 
@@ -55,6 +55,7 @@ const login = async ({ email, password }) => {
   const passwordValid = await bcrypt.compare(password, hashToCompare);
 
   if (!userWithHash || !passwordValid) {
+
     throw createError('Invalid email or password.', 401);
   }
 

@@ -5,7 +5,7 @@ const env = require('../config/env');
 
 /**
  * @param {{ id: string, email: string }} payload
- * @returns {string} signed token
+ * @returns {string} 
  */
 const signToken = (payload) => {
   return jwt.sign(payload, env.JWT_SECRET, {
@@ -15,9 +15,8 @@ const signToken = (payload) => {
 };
 
 /**
-
  * @param {string} token
- * @returns {object} decoded payload
+ * @returns {object} 
  */
 const verifyToken = (token) => {
   return jwt.verify(token, env.JWT_SECRET, { algorithms: ['HS256'] });

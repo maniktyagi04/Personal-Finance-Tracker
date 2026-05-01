@@ -4,6 +4,7 @@ const { Prisma } = require('@prisma/client');
 const env = require('../config/env');
 
 const errorHandler = (err, req, res, next) => {
+
   if (err instanceof Prisma.PrismaClientKnownRequestError) {
     switch (err.code) {
       case 'P2002': {
@@ -33,6 +34,7 @@ const errorHandler = (err, req, res, next) => {
       error: 'Invalid data provided to the database.',
     });
   }
+
 
   const statusCode = err.statusCode || 500;
   const message = err.message || 'Internal server error';
