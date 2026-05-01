@@ -148,14 +148,6 @@ Start the backend server:
 
 ---
 
-## ⚠️ Limitations
-
-- No automated testing implemented  
-- No rate limiting or advanced security  
-- Basic UI (not production-grade)  
-- No caching for heavy queries  
-
----
 
 ## 📌 Future Improvements
 
